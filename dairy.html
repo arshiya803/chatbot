@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Personal Diary</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        .diary-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .diary-header {
+            background-color: #4a6fa5;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .diary-title {
+            font-size: 24px;
+            margin: 0;
+        }
+        
+        .diary-date {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .diary-date-input {
+            padding: 5px;
+            border: none;
+            border-radius: 3px;
+        }
+        
+        .diary-content {
+            padding: 20px;
+        }
+        
+        .entry-date {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #4a6fa5;
+        }
+        
+        .diary-textarea {
+            width: 100%;
+            height: 400px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Arial', sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            resize: none;
+        }
+        
+        .diary-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            padding: 10px 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .diary-button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .save-btn {
+            background-color: #4a6fa5;
+            color: white;
+        }
+        
+        .clear-btn {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        
+        .status-message {
+            text-align: center;
+            padding: 5px;
+            font-size: 14px;
+            color: #4CAF50;
+        }
+        
+        .error {
+            color: #f44336;
+        }
+    </style>
+</head>
+<body>
+    <div class="diary-container">
+        <div class="diary-header">
+            <h1 class="diary-title">My Personal Diary</h1>
+            <div class="diary-date">
+                <input type="date" id="entry-date" class="diary-date-input">
+                <button id="load-entry" class="diary-button save-btn">Load Entry</button>
+            </div>
+        </div>
+        
+        <div class="diary-content">
+            <div class="entry-date" id="display-date">March 2025</div>
+            <textarea id="diary-entry" class="diary-textarea" placeholder="Write your thoughts here..."></textarea>
+        </div>
+        
+        <div class="diary-actions">
+            <button id="save-entry" class="diary-button save-btn">Save</button>
+            <button id="clear-entry" class="diary-button clear-btn">Clear</button>
+        </div>
+        
+        <div id="status-message" class="status-message"></div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const entryDate = document.getElementById('entry-date');
+            const displayDate = document.getElementById('display-date');
+            const diaryEntry = document.getElementById('diary-entry');
+            const saveButton = document.getElementById('save-entry');
+            const clearButton = document.getElementById('clear-entry');
+            const loadButton = document.getElementById('load-entry');
+            const statusMessage = document.getElementById('status-message');
+            
+            // Set default date to today
+            const today = new Date();
+            entryDate.value = formatDateForInput(today);
+            displayDate.textContent = formatDateForDisplay(today);
+            
+            // Load today's entry on page load
+            loadEntry(entryDate.value);
+            
+            // Event listeners
+            saveButton.addEventListener('click', saveEntry);
+            clearButton.addEventListener('click', clearEntry);
+            loadButton.addEventListener('click', () => loadEntry(entryDate.value));
+            entryDate.addEventListener('change', function() {
+                displayDate.textContent = formatDateForDisplay(new Date(this.value));
+            });
+            
+            function formatDateForInput(date) {
+                return date.toISOString().split('T')[0];
+            }
+            
+            function formatDateForDisplay(date) {
+                const options = { month: 'long', year: 'numeric' };
+                return date.toLocaleDateString('en-US', options);
+            }
+            
+            function loadEntry(date) {
+                // In a real app, this would fetch from a server
+                // For demo, we'll use localStorage
+                const entry = localStorage.getItem(`diary-entry-${date}`);
+                if (entry) {
+                    diaryEntry.value = entry;
+                    showStatus('Entry loaded successfully');
+                } else {
+                    diaryEntry.value = '';
+                    showStatus('No entry found for this date');
+                }
+            }
+            
+            function saveEntry() {
+                const date = entryDate.value;
+                const content = diaryEntry.value.trim();
+                
+                if (!content) {
+                    showStatus('Cannot save empty entry', 'error');
+                    return;
+                }
+                
+                // In a real app, this would save to a server
+                // For demo, we'll use localStorage
+                localStorage.setItem(`diary-entry-${date}`, content);
+                showStatus('Entry saved successfully');
+            }
+            
+            function clearEntry() {
+                if (diaryEntry.value.trim() && !confirm('Are you sure you want to clear this entry?')) {
+                    return;
+                }
+                diaryEntry.value = '';
+                showStatus('Entry cleared');
+            }
+            
+            function showStatus(message, type = 'success') {
+                statusMessage.textContent = message;
+                statusMessage.className = type === 'error' ? 'status-message error' : 'status-message';
+                
+                // Clear message after 3 seconds
+                setTimeout(() => {
+                    if (statusMessage.textContent === message) {
+                        statusMessage.textContent = '';
+                    }
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+</html>

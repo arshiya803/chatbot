@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyMate - Choose Your Look</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@300;400;600&display=swap');
+        body {
+            background-color: #c4b8a9;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        
+        .logo {
+            font-family: 'Dancing Script', cursive;
+            font-size: 24px;
+            color: white;
+        }
+        
+        .container {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+        
+        .character img {
+            width: 250px;
+        }
+        
+        .selection-area {
+            text-align: center;
+        }
+        
+        h2 {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 40px; /* Increased margin to move the button down */
+        }
+        
+        .option {
+            width: 70px;
+            height: 70px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+        }
+        
+        .option img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .continue-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #333;
+            background-color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .continue-button:hover {
+            background-color: #ddd;
+        }
+        
+    </style>
+</head>
+<body>
+    <h1 class="logo">MyMate</h1>
+    <div class="container">
+        <div class="character">
+            <img src="main_look.png" alt="Character Look" />
+        </div>
+        <div class="selection-area">
+            <h2>Choose Your Look</h2>
+            <div class="options">
+                <div class="option"><img src="img1.png" alt="Option 1"></div>
+                <div class="option"><img src="img2.png" alt="Option 2"></div>
+               <a href="char2.html"> <div class="option"><img src="img3.png" alt="Option 3"></div> </a>
+                <div class="option"><img src="img4.png" alt="Option 4"></div>
+                <div class="option"><img src="img5.png" alt="Option 5"></div>
+            </div>
+            <a href="chat.html" class="continue-button">Continue </a>
+        </div>
+    </div>
+</body>
+</html>

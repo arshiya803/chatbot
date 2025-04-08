@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account</title>
+    <link rel="stylesheet" href="login.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@300;400;600&display=swap');
+        /* styles.css */
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #c2b8a8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #c2b8a8;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            width: 350px;
+        }
+
+        .logo {
+            font-family: 'Dancing Script', cursive;
+            font-size: 24px;
+            color: white;
+        }
+
+        h2 {
+            font-size: 18px;
+            margin-bottom: 25px;
+            color: #555;
+            font-weight: normal;
+        }
+
+        button {
+            border-radius: 20px;
+            padding: 12px;
+            width: 100%;
+            margin-bottom: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .or-divider {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            color: #666;
+        }
+
+        .or-divider::before,
+        .or-divider::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid #ddd;
+            margin: 0 10px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .note {
+            font-size: 14px;
+            color: #666;
+            margin-top: -10px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .login-link {
+            margin-top: 20px;
+            color: #666;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .google-btn {
+            background-color: #4285F4;
+            color: white;
+            font-weight: bold;
+        }
+
+        .apple-btn {
+            background-color: #000;
+            color: white;
+            font-weight: bold;
+        }
+
+        .continue-btn {
+            background-color: #4CAF50;
+            color: white;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="logo">MyMate</h1>
+        <h2>Create your Account</h2>
+
+        <button class="google-btn">Continue with Google</button>
+        <button class="apple-btn">Continue with Apple</button>
+
+        <div class="or-divider">or</div>
+
+        <form>
+            <input type="email" placeholder="Email" required>
+            <input type="password" placeholder="Password" minlength="8" required>
+            <p class="note">Password must contain at least 8 characters.</p>
+            <button type="submit" class="continue-btn" >Contiune</button>
+        </form>
+
+        <p class="login-link">Have an account? <a href="#">Log In</a></p>
+    </div>
+    <script>
+        const validCredentials = {
+            email: "2303A51389@sru.edu.in",
+            password: "Student@2023"
+        };
+        
+        function handleLogin(event) {
+            event.preventDefault(); 
+        
+            const email = document.querySelector("input[type='email']").value.trim();
+            const password = document.querySelector("input[type='password']").value.trim();
+        
+            if (!email || !password) {
+                alert("Please fill in both fields.");
+                return;
+            }
+        
+            if (email === validCredentials.email && password === validCredentials.password) {
+                window.location.href = "name.html"; 
+            } else {
+                alert("Enter valid credentials");
+            }
+        }
+        
+        document.querySelector(".continue-btn").addEventListener("click", handleLogin);
+    </script>
+</body>
+
+</html>
